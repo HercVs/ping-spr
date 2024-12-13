@@ -3,6 +3,7 @@ package gr.eduping.eduping.model.static_data;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,5 +25,8 @@ public class FieldCategory {
     @OneToMany(mappedBy = "fieldCategory")
     private Set<StudyField> studyFields = new HashSet<>();
 
-    // TODO getters: getAll return Collections.unmodifiableSet
+    public Set<StudyField> getAllStudyFields() {
+        if (studyFields == null) studyFields = new HashSet<>();
+        return Collections.unmodifiableSet(studyFields);
+    }
 }

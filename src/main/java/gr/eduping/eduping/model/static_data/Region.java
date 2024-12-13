@@ -4,6 +4,7 @@ import gr.eduping.eduping.model.PersonalDetails;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,5 +34,13 @@ public class Region {
     @OneToMany(mappedBy = "region")
     private Set<PersonalDetails> personalDetails = new HashSet<>();
 
-    // TODO getters: getAll return Collections.unmodifiableSet
+    public Set<City> getAllCities() {
+        if (cities == null) cities = new HashSet<>();
+        return Collections.unmodifiableSet(cities);
+    }
+
+    public Set<PersonalDetails> getAllPersonalDetails() {
+        if (personalDetails == null) personalDetails = new HashSet<>();
+        return Collections.unmodifiableSet(personalDetails);
+    }
 }

@@ -9,10 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @NoArgsConstructor
@@ -31,7 +28,6 @@ public class User extends AbstractEntity implements UserDetails {
 
     private String password;
 
-    @Column(nullable = false)
     private Role role;
 
     @Column(name = "is_active")
@@ -52,8 +48,15 @@ public class User extends AbstractEntity implements UserDetails {
     @JoinTable(name = "users_institutions")
     private Set<Institution> institutions;
 
-    // TODO getters: getAll return Collections.unmodifiableSet
+    public Set<StudyField> getAllStudyFields() {
+        if (studyFields == null) studyFields = new HashSet<>();
+        return Collections.unmodifiableSet(studyFields);
+    }
 
+    public Set<Institution> getAllInstitutions() {
+        if (institutions == null) institutions = new HashSet<>();
+        return Collections.unmodifiableSet(institutions);
+    }
 
     /**
      * Convenient method to check if there are missing personal details.
@@ -68,6 +71,8 @@ public class User extends AbstractEntity implements UserDetails {
                 personalDetails.getCountry() == null ||
                 personalDetails.getOccupation() == null;
     }
+
+    // UserDetails API
 
     @Override
     public String getPassword() {

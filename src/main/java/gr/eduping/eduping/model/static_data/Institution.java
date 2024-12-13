@@ -4,6 +4,7 @@ import gr.eduping.eduping.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,5 +30,8 @@ public class Institution {
     @ManyToMany(mappedBy = "institutions")
     private Set<User> users = new HashSet<>();
 
-    // TODO getters: getAll return Collections.unmodifiableSet
+    public Set<User> getAllUsers() {
+        if (users == null) users = new HashSet<>();
+        return Collections.unmodifiableSet(users);
+    }
 }
