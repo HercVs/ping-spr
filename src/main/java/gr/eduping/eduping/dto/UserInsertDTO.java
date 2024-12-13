@@ -1,4 +1,4 @@
-package gr.eduping.eduping.core.dto;
+package gr.eduping.eduping.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

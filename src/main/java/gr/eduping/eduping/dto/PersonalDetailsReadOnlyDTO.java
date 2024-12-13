@@ -1,4 +1,4 @@
-package gr.eduping.eduping.core.dto;
+package gr.eduping.eduping.dto;
 
 import gr.eduping.eduping.core.enums.Occupation;
 import gr.eduping.eduping.model.static_data.City;
