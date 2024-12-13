@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @NoArgsConstructor
@@ -49,4 +48,8 @@ public class PersonalDetails extends AbstractEntity {
 
 //    @Column(nullable = false)
     private Occupation occupation;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
