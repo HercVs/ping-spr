@@ -1,8 +1,8 @@
-gradlew/
 gradlew
 gradlew.bat
 settings.gradle
 gradle/
+logs/
 
 HELP.md
 .gradle
