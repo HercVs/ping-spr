@@ -28,19 +28,10 @@ public class Region {
 
     @Getter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "region")
-    private Set<City> cities = new HashSet<>();
+    private Set<RegionalUnit> regionalUnits = new HashSet<>();
 
-    @Getter(AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "region")
-    private Set<PersonalDetails> personalDetails = new HashSet<>();
-
-    public Set<City> getAllCities() {
-        if (cities == null) cities = new HashSet<>();
-        return Collections.unmodifiableSet(cities);
-    }
-
-    public Set<PersonalDetails> getAllPersonalDetails() {
-        if (personalDetails == null) personalDetails = new HashSet<>();
-        return Collections.unmodifiableSet(personalDetails);
+    public Set<RegionalUnit> getAllCities() {
+        if (regionalUnits == null) regionalUnits = new HashSet<>();
+        return Collections.unmodifiableSet(regionalUnits);
     }
 }

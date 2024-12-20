@@ -27,11 +27,11 @@ public class Institution {
     private City city;
 
     @Getter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "institutions")
-    private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "institution")
+    private Set<Department> departments = new HashSet<>();
 
-    public Set<User> getAllUsers() {
-        if (users == null) users = new HashSet<>();
-        return Collections.unmodifiableSet(users);
+    public Set<Department> getAllDepartments() {
+        if (departments == null) departments = new HashSet<>();
+        return Collections.unmodifiableSet(departments);
     }
 }

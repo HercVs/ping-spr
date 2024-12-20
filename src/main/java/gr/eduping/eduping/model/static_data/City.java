@@ -23,12 +23,16 @@ public class City {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "region_id")
-    private Region region;
+    @JoinColumn(name = "regional_unit_id")
+    private RegionalUnit regionalUnit;
 
     @Getter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "city")
     private Set<Institution> institutions = new HashSet<>();
+
+    @Getter(AccessLevel.PRIVATE)
+    @OneToMany(mappedBy = "city")
+    private Set<Department> departments = new HashSet<>();
 
     @Getter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "city")
@@ -37,6 +41,11 @@ public class City {
     public Set<Institution> getAllInstitutions() {
         if (institutions == null) institutions = new HashSet<>();
         return Collections.unmodifiableSet(institutions);
+    }
+
+    public Set<Department> getAllDepartments() {
+        if (departments == null) departments = new HashSet<>();
+        return Collections.unmodifiableSet(departments);
     }
 
     public Set<PersonalDetails> getAllPersonalDetails() {

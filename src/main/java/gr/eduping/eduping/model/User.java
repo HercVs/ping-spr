@@ -1,6 +1,7 @@
 package gr.eduping.eduping.model;
 
 import gr.eduping.eduping.core.enums.Role;
+import gr.eduping.eduping.model.static_data.Department;
 import gr.eduping.eduping.model.static_data.Institution;
 import gr.eduping.eduping.model.static_data.StudyField;
 import jakarta.persistence.*;
@@ -45,17 +46,17 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Getter(AccessLevel.PRIVATE)
     @ManyToMany
-    @JoinTable(name = "users_institutions")
-    private Set<Institution> institutions;
+    @JoinTable(name = "users_departments")
+    private Set<Department> departments;
 
     public Set<StudyField> getAllStudyFields() {
         if (studyFields == null) studyFields = new HashSet<>();
         return Collections.unmodifiableSet(studyFields);
     }
 
-    public Set<Institution> getAllInstitutions() {
-        if (institutions == null) institutions = new HashSet<>();
-        return Collections.unmodifiableSet(institutions);
+    public Set<Department> getAllDepartments() {
+        if (departments == null) departments = new HashSet<>();
+        return Collections.unmodifiableSet(departments);
     }
 
     /**
