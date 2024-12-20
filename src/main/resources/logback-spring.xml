@@ -65,6 +65,18 @@
         </rollingPolicy>
     </appender>
 
+    <!-- Hibernate Logs -->
+    <appender name="HibernateLogs" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/hibernate.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/hibernate.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
     <!-- Loggers for Tomcat -->
     <logger name="org.apache.catalina" level="DEBUG" additivity="false">
         <appender-ref ref="TomcatLogs"/>
@@ -81,6 +93,11 @@
     <!-- Logger for HikariCP -->
     <logger name="com.zaxxer.hikari" level="DEBUG" additivity="false">
         <appender-ref ref="HikariLogs"/>
+    </logger>
+
+    <!-- Logger for Hibernate -->
+    <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+        <appender-ref ref="HibernateLogs"/>
     </logger>
 
     <!-- Root Logger -->
