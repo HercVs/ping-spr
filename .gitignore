@@ -3,6 +3,8 @@ gradlew.bat
 settings.gradle
 gradle/
 logs/
+/*.txt
+*.sql
 
 HELP.md
 .gradle
