@@ -1,6 +1,5 @@
 package gr.eduping.eduping.model.static_data;
 
-import gr.eduping.eduping.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 

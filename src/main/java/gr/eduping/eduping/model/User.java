@@ -2,7 +2,6 @@ package gr.eduping.eduping.model;
 
 import gr.eduping.eduping.core.enums.Role;
 import gr.eduping.eduping.model.static_data.Department;
-import gr.eduping.eduping.model.static_data.Institution;
 import gr.eduping.eduping.model.static_data.StudyField;
 import jakarta.persistence.*;
 import lombok.*;
