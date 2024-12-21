@@ -27,7 +27,7 @@ public class Institution {
     private City city;
 
     @Getter(AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "school")
+    @OneToMany(mappedBy = "institution")
     private Set<School> schools = new HashSet<>();
 
     public Set<School> getAllDepartments() {
