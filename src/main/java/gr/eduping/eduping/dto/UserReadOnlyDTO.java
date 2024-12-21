@@ -14,5 +14,4 @@ public class UserReadOnlyDTO {
 
     private String username;
     private Role role;
-    private PersonalDetailsReadOnlyDTO personalDetailsReadOnlyDTO;
 }
