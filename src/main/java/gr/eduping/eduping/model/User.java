@@ -28,13 +28,14 @@ public class User extends AbstractEntity implements UserDetails {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name = "is_active")
     @ColumnDefault("true")
     private Boolean isActive;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "personal_details_id")
     private PersonalDetails personalDetails;
 
@@ -67,12 +68,11 @@ public class User extends AbstractEntity implements UserDetails {
                 (personalDetails.getLastname() == null || personalDetails.getLastname().isBlank()) ||
                 personalDetails.getGender() == null ||
                 personalDetails.getCity() == null ||
-                personalDetails.getRegion() == null ||
                 personalDetails.getCountry() == null ||
                 personalDetails.getOccupation() == null;
     }
 
-    // UserDetails API
+    // UserDetails API TODO authentication
 
     @Override
     public String getPassword() {
@@ -86,7 +86,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(); // TODO
+        return List.of();
     }
 
     @Override

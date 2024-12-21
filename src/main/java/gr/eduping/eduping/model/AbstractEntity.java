@@ -3,6 +3,7 @@ package gr.eduping.eduping.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @MappedSuperclass
 @AllArgsConstructor
@@ -31,4 +33,11 @@ public abstract class AbstractEntity implements Serializable {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    private String uuid;
+
+    @PrePersist
+    public void initializeUUID() {
+        if (uuid == null) uuid = UUID.randomUUID().toString();
+    }
 }

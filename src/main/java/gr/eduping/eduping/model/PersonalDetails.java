@@ -4,7 +4,6 @@ import gr.eduping.eduping.core.enums.Gender;
 import gr.eduping.eduping.core.enums.Occupation;
 import gr.eduping.eduping.model.static_data.City;
 import gr.eduping.eduping.model.static_data.Country;
-import gr.eduping.eduping.model.static_data.Region;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,33 +22,29 @@ public class PersonalDetails extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // TODO ? Allow register without personal details ???
-
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String firstname;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String lastname;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
+    @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
     @ManyToOne
-    @JoinColumn(name = "region_id")
-    private Region region;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Occupation occupation;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
