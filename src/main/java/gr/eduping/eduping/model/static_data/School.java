@@ -1,6 +1,5 @@
 package gr.eduping.eduping.model.static_data;
 
-import gr.eduping.eduping.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,25 +12,26 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "institutions")
-public class Institution {
+@Table(name = "schools")
+public class School {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    @JoinColumn(name = "institution_id")
+    private Institution institution;
 
     @Getter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "school")
-    private Set<School> schools = new HashSet<>();
+    private Set<Department> departments = new HashSet<>();
 
-    public Set<School> getAllDepartments() {
-        if (schools == null) schools = new HashSet<>();
-        return Collections.unmodifiableSet(schools);
+    public Set<Department> getAllDepartments() {
+        if (departments == null) departments = new HashSet<>();
+        return Collections.unmodifiableSet(departments);
     }
 }
