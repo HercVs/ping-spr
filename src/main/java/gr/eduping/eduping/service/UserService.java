@@ -1,8 +1,10 @@
 package gr.eduping.eduping.service;
 
 import gr.eduping.eduping.core.exceptions.EntityAlreadyExistsException;
+import gr.eduping.eduping.core.exceptions.EntityNotFoundException;
 import gr.eduping.eduping.dto.UserInsertDTO;
 import gr.eduping.eduping.dto.UserReadOnlyDTO;
+import gr.eduping.eduping.dto.UserUpdateDTO;
 import gr.eduping.eduping.mapper.Mapper;
 import gr.eduping.eduping.model.User;
 import gr.eduping.eduping.repository.UserRepository;
@@ -19,7 +21,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public UserReadOnlyDTO saveUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException {
+    public UserReadOnlyDTO insertUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException {
 
         if (userRepository.findByUsername(userInsertDTO.getUsername()).isPresent()) {
             throw new EntityAlreadyExistsException("User", "User with username: " +
@@ -30,5 +32,19 @@ public class UserService implements IUserService {
         User savedUser = userRepository.save(user);
 
         return mapper.mapToUserReadOnlyDTO(savedUser);
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public UserReadOnlyDTO updateUser(UserUpdateDTO userUpdateDTO) throws EntityNotFoundException {
+
+        if (userRepository.findById(userUpdateDTO.getId()).isEmpty()) {
+            throw new EntityNotFoundException("User", "User with id: " + userUpdateDTO.getId() + " not found");
+        }
+
+        User user = mapper.mapToUserEntity(userUpdateDTO);
+        User updatedUser = userRepository.save(user);
+
+        return mapper.mapToUserReadOnlyDTO(updatedUser);
     }
 }
