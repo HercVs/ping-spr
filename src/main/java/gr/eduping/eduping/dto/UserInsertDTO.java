@@ -2,6 +2,7 @@ package gr.eduping.eduping.dto;
 
 import gr.eduping.eduping.core.enums.Role;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -15,13 +16,11 @@ import lombok.Setter;
 @Setter
 public class UserInsertDTO {
 
+    @NotEmpty(message = "Username must not be empty")
     @Email(message = "Invalid username")
     private String username;
 
+    @NotEmpty(message = "Password must not be empty")
     @Pattern(regexp = "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\\d)(?=.*?[@$!%*?&]).{8,}$", message = "Invalid password")
     private String password;
-
-    // TODO role should not be inserted by the user
-    @NotNull(message = "Role must not be null")
-    private Role role;
 }
