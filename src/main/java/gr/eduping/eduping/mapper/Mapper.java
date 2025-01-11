@@ -17,7 +17,7 @@ public class Mapper {
         user.setPassword(insertDTO.getPassword());
 
         // Defaults
-        user.setRole(Role.USER);
+        user.setRole(Role.ROLE_USER);
         user.setIsActive(true);
 
         return user;

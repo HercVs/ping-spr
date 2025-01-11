@@ -1,7 +1,6 @@
 package gr.eduping.eduping.core.enums;
 
 public enum Role {
-    ADMIN,
-    USER,
-    TRIAL_USER
+    ROLE_ADMIN,
+    ROLE_USER
 }
