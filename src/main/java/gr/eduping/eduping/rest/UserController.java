@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class UserRestController {
+public class UserController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -30,10 +30,9 @@ public class UserRestController {
             throw new ValidationException(bindingResult);
         }
 
-        // TODO comment for testing
-//        String rawPwd = userInsertDTO.getPassword();
-//        String encryptedPwd = passwordEncoder.encode(rawPwd);
-//        userInsertDTO.setPassword(encryptedPwd);
+        String rawPwd = userInsertDTO.getPassword();
+        String encryptedPwd = passwordEncoder.encode(rawPwd);
+        userInsertDTO.setPassword(encryptedPwd);
 
         UserReadOnlyDTO userReadOnlyDTO = userService.insertUser(userInsertDTO);
         return new ResponseEntity<>(userReadOnlyDTO, HttpStatus.CREATED);
@@ -57,6 +56,10 @@ public class UserRestController {
         if (bindingResult.hasErrors()) {
             throw new ValidationException(bindingResult);
         }
+
+        String rawPwd = userUpdateDTO.getPassword();
+        String encryptedPwd = passwordEncoder.encode(rawPwd);
+        userUpdateDTO.setPassword(encryptedPwd);
 
         UserReadOnlyDTO userReadOnlyDTO = userService.updateUser(userUpdateDTO);
         return new ResponseEntity<>(userReadOnlyDTO, HttpStatus.OK);
