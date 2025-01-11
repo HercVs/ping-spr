@@ -77,6 +77,18 @@
         </rollingPolicy>
     </appender>
 
+    <!-- Auth Logs -->
+    <appender name="AuthLogs" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/auth.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/auth.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
     <!-- Loggers for Tomcat -->
     <logger name="org.apache.catalina" level="DEBUG" additivity="false">
         <appender-ref ref="TomcatLogs"/>
@@ -98,6 +110,15 @@
     <!-- Logger for Hibernate -->
     <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
         <appender-ref ref="HibernateLogs"/>
+    </logger>
+
+    <!-- Loggers for Authentication -->
+    <logger name="gr.eduping.eduping.authentication.JwtAuthenticationFilter" level="DEBUG" additivity="false">
+        <appender-ref ref="AuthLogs"/>
+    </logger>
+
+    <logger name="gr.eduping.eduping.rest.AuthController" level="INFO" additivity="false">
+        <appender-ref ref="AuthLogs"/>
     </logger>
 
     <!-- Root Logger -->
