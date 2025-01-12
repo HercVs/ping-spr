@@ -1,5 +1,6 @@
 package gr.eduping.eduping.rest;
 
+import gr.eduping.eduping.authentication.AuthenticationService;
 import gr.eduping.eduping.core.exceptions.*;
 import gr.eduping.eduping.dto.UserInsertDTO;
 import gr.eduping.eduping.dto.UserReadOnlyDTO;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final AuthenticationService authService;
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/insert")
@@ -44,13 +46,8 @@ public class UserController {
                                                       BindingResult bindingResult)
             throws ValidationException, EntityNotFoundException, EntityInvalidArgumentsException, EntityNotAuthorizedException {
 
-        if (false) { // TODO User should only be able to update their own details
+        if (!authService.isPrincipalSelf(userUpdateDTO.getUsername()) && !authService.isPrincipalAdmin()) {
             throw new EntityNotAuthorizedException("User", "Not authorized");
-        }
-
-        if (userId != userUpdateDTO.getId()) { // TODO Should be covered above by comparing with JWT
-            throw new EntityInvalidArgumentsException("User", "Invalid id: " + userId +
-                    " for user with id: " + userUpdateDTO.getId());
         }
 
         if (bindingResult.hasErrors()) {

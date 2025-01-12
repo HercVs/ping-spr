@@ -2,6 +2,7 @@ package gr.eduping.eduping.core;
 
 import gr.eduping.eduping.core.exceptions.EntityAlreadyExistsException;
 import gr.eduping.eduping.core.exceptions.EntityInvalidArgumentsException;
+import gr.eduping.eduping.core.exceptions.EntityNotAuthorizedException;
 import gr.eduping.eduping.core.exceptions.ValidationException;
 import gr.eduping.eduping.dto.ResponseMessageDTO;
 import org.springframework.http.HttpStatus;
@@ -39,5 +40,10 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityInvalidArgumentsException.class)
     public ResponseEntity<ResponseMessageDTO> handleConstraintViolationException(EntityInvalidArgumentsException e) {
         return new ResponseEntity<>(new ResponseMessageDTO(e.getCode(), e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotAuthorizedException.class)
+    public ResponseEntity<ResponseMessageDTO> handleUnauthorizedException(EntityNotAuthorizedException e) {
+        return new ResponseEntity<>(new ResponseMessageDTO(e.getCode(), e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 }
