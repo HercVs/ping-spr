@@ -6,7 +6,7 @@ import gr.eduping.eduping.core.exceptions.EntityNotFoundException;
 import gr.eduping.eduping.dto.UserInsertDTO;
 import gr.eduping.eduping.dto.UserReadOnlyDTO;
 import gr.eduping.eduping.dto.UserUpdateDTO;
-import gr.eduping.eduping.mapper.Mapper;
+import gr.eduping.eduping.mapper.UserMapper;
 import gr.eduping.eduping.model.User;
 import gr.eduping.eduping.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
-    private final Mapper mapper;
+    private final UserMapper userMapper;
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -31,10 +31,10 @@ public class UserService implements IUserService {
                     userInsertDTO.getUsername() + " already exists");
         }
 
-        User user = mapper.mapToUserEntity(userInsertDTO);
+        User user = userMapper.mapToUserEntity(userInsertDTO);
         User savedUser = userRepository.save(user);
 
-        return mapper.mapToUserReadOnlyDTO(savedUser);
+        return userMapper.mapToUserReadOnlyDTO(savedUser);
     }
 
     @Override
@@ -55,9 +55,9 @@ public class UserService implements IUserService {
                     + " already exists");
         }
 
-        User user = mapper.mapToUserEntity(userUpdateDTO);
+        User user = userMapper.mapToUserEntity(userUpdateDTO);
         User updatedUser = userRepository.save(user);
 
-        return mapper.mapToUserReadOnlyDTO(updatedUser);
+        return userMapper.mapToUserReadOnlyDTO(updatedUser);
     }
 }

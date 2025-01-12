@@ -8,7 +8,7 @@ import gr.eduping.eduping.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper {
+public class UserMapper {
 
     public User mapToUserEntity(UserInsertDTO insertDTO) {
         User user = new User();
