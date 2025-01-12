@@ -1,6 +1,7 @@
 package gr.eduping.eduping.core;
 
 import gr.eduping.eduping.core.exceptions.EntityAlreadyExistsException;
+import gr.eduping.eduping.core.exceptions.EntityInvalidArgumentsException;
 import gr.eduping.eduping.core.exceptions.ValidationException;
 import gr.eduping.eduping.dto.ResponseMessageDTO;
 import org.springframework.http.HttpStatus;
@@ -33,5 +34,10 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ResponseMessageDTO> handleConstraintViolationException(EntityAlreadyExistsException e) {
 
         return new ResponseEntity<>(new ResponseMessageDTO(e.getCode(), e.getMessage()), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EntityInvalidArgumentsException.class)
+    public ResponseEntity<ResponseMessageDTO> handleConstraintViolationException(EntityInvalidArgumentsException e) {
+        return new ResponseEntity<>(new ResponseMessageDTO(e.getCode(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

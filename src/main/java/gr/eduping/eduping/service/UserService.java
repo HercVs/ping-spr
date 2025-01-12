@@ -1,6 +1,7 @@
 package gr.eduping.eduping.service;
 
 import gr.eduping.eduping.core.exceptions.EntityAlreadyExistsException;
+import gr.eduping.eduping.core.exceptions.EntityInvalidArgumentsException;
 import gr.eduping.eduping.core.exceptions.EntityNotFoundException;
 import gr.eduping.eduping.dto.UserInsertDTO;
 import gr.eduping.eduping.dto.UserReadOnlyDTO;
@@ -11,6 +12,8 @@ import gr.eduping.eduping.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -36,10 +39,20 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public UserReadOnlyDTO updateUser(UserUpdateDTO userUpdateDTO) throws EntityNotFoundException {
+    public UserReadOnlyDTO updateUser(UserUpdateDTO userUpdateDTO)
+            throws EntityNotFoundException, EntityInvalidArgumentsException {
 
         if (userRepository.findById(userUpdateDTO.getId()).isEmpty()) {
             throw new EntityNotFoundException("User", "User with id: " + userUpdateDTO.getId() + " not found");
+        }
+
+        if (userRepository.findByUsername(userUpdateDTO.getUsername()).isPresent()
+                && !Objects.equals(
+                        userRepository.findByUsername(userUpdateDTO.getUsername()).get().getId(),
+                        userUpdateDTO.getId()))
+        {
+            throw new EntityInvalidArgumentsException("User", "User with username: " + userUpdateDTO.getUsername()
+                    + " already exists");
         }
 
         User user = mapper.mapToUserEntity(userUpdateDTO);
