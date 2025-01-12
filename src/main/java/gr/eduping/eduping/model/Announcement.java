@@ -21,6 +21,9 @@ public class Announcement extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "source_url")
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
