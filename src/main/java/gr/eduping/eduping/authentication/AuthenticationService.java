@@ -52,4 +52,15 @@ public class AuthenticationService {
             return Objects.equals(principal.getName(), user.getUsername());
         }
     }
+
+    @Transactional(rollbackOn = Exception.class)
+    public boolean isPrincipalSelf(Long id) {
+        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return false;
+        } else {
+            return Objects.equals(principal.getName(), user.getUsername());
+        }
+    }
 }
