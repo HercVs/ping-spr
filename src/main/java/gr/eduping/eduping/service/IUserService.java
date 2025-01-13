@@ -10,4 +10,5 @@ import gr.eduping.eduping.dto.UserUpdateDTO;
 public interface IUserService {
     UserReadOnlyDTO insertUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException, EntityInvalidArgumentsException;
     UserReadOnlyDTO updateUser(UserUpdateDTO userUpdateDTO) throws EntityNotFoundException, EntityInvalidArgumentsException;
+    UserReadOnlyDTO deleteUser(Long id) throws EntityNotFoundException;
 }

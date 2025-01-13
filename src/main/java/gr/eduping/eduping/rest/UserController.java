@@ -6,6 +6,7 @@ import gr.eduping.eduping.dto.UserInsertDTO;
 import gr.eduping.eduping.dto.UserReadOnlyDTO;
 import gr.eduping.eduping.dto.UserUpdateDTO;
 import gr.eduping.eduping.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -59,6 +60,19 @@ public class UserController {
         userUpdateDTO.setPassword(encryptedPwd);
 
         UserReadOnlyDTO userReadOnlyDTO = userService.updateUser(userUpdateDTO);
+        return new ResponseEntity<>(userReadOnlyDTO, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Delete a user", description = "Deletes a new user from the DB.")
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<UserReadOnlyDTO> deleteUser(@PathVariable Long userId)
+            throws EntityNotAuthorizedException, EntityNotFoundException {
+
+        if (!authService.isPrincipalSelf(userId) && !authService.isPrincipalAdmin()) {
+            throw new EntityNotAuthorizedException("User", "Not authorized");
+        }
+
+        UserReadOnlyDTO userReadOnlyDTO = userService.deleteUser(userId);
         return new ResponseEntity<>(userReadOnlyDTO, HttpStatus.OK);
     }
 }

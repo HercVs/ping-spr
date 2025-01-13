@@ -60,4 +60,16 @@ public class UserService implements IUserService {
 
         return userMapper.mapToUserReadOnlyDTO(updatedUser);
     }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public UserReadOnlyDTO deleteUser(Long id) throws EntityNotFoundException {
+
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("User", "User with id: " + id + " not found"));
+        UserReadOnlyDTO deletedUser = userMapper.mapToUserReadOnlyDTO(user);
+        userRepository.delete(user);
+
+        return deletedUser;
+    }
 }
