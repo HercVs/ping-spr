@@ -7,7 +7,7 @@ import gr.eduping.eduping.dto.DepartmentReadOnlyDTO;
 import gr.eduping.eduping.dto.UserInsertDTO;
 import gr.eduping.eduping.dto.UserReadOnlyDTO;
 import gr.eduping.eduping.dto.UserUpdateDTO;
-import gr.eduping.eduping.mapper.DepartmentMapper;
+import gr.eduping.eduping.mapper.InstitutionMapper;
 import gr.eduping.eduping.mapper.UserMapper;
 import gr.eduping.eduping.model.User;
 import gr.eduping.eduping.model.static_data.Department;
@@ -28,7 +28,7 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final DepartmentRepository departmentRepository;
-    private final DepartmentMapper departmentMapper;
+    private final InstitutionMapper institutionMapper;
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -89,7 +89,7 @@ public class UserService implements IUserService {
 
         return departmentRepository.findAllByUsersId(id)
                 .stream()
-                .map(departmentMapper::mapToDepartmentReadOnlyDTO)
+                .map(institutionMapper::mapToDepartmentReadOnlyDTO)
                 .collect(Collectors.toSet());
     }
 
