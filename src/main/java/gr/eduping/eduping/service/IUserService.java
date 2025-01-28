@@ -14,7 +14,7 @@ public interface IUserService {
     UserReadOnlyDTO insertUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException, EntityInvalidArgumentsException;
     UserReadOnlyDTO updateUser(UserUpdateDTO userUpdateDTO) throws EntityNotFoundException, EntityInvalidArgumentsException;
     UserReadOnlyDTO deleteUser(Long id) throws EntityNotFoundException;
-    Set<DepartmentReadOnlyDTO> getUserDepartments(Long id);
+    Set<DepartmentReadOnlyDTO> getUserDepartments(Long id) throws EntityNotFoundException;
     Set<DepartmentReadOnlyDTO> insertDepartmentToUser(Long userId, Long departmentId)
             throws EntityNotFoundException, EntityAlreadyExistsException;
     Set<DepartmentReadOnlyDTO> removeDepartmentFromUser(Long userId, Long departmentId)

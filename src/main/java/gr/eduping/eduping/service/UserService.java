@@ -83,7 +83,10 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public Set<DepartmentReadOnlyDTO> getUserDepartments(Long id) {
+    public Set<DepartmentReadOnlyDTO> getUserDepartments(Long id) throws EntityNotFoundException {
+        userRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("User", "User with id: " + id + " not found"));
+
         return departmentRepository.findAllByUsersId(id)
                 .stream()
                 .map(departmentMapper::mapToDepartmentReadOnlyDTO)
