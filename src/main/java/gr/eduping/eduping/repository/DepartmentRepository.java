@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.Set;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long>, JpaSpecificationExecutor<Long> {
+    Set<Department> findAllBySchoolId(Long id);
     Set<Department> findAllByUsersId(Long id);
 }
