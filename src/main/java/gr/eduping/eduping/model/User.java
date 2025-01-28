@@ -60,6 +60,17 @@ public class User extends AbstractEntity implements UserDetails {
         return Collections.unmodifiableSet(departments);
     }
 
+    public void addDepartment(Department department) {
+        if (departments == null) departments = new HashSet<>();
+        departments.add(department);
+    }
+
+    public void removeDepartment(Department department) {
+        if (departments != null) {
+            departments.remove(department);
+        }
+    }
+
     /**
      * Convenient method to check if there are missing personal details.
      * @return true if there is/are missing personal detail field(s)
@@ -72,8 +83,6 @@ public class User extends AbstractEntity implements UserDetails {
                 personalDetails.getCountry() == null ||
                 personalDetails.getOccupation() == null;
     }
-
-    // UserDetails API TODO authentication
 
     @Override
     public String getPassword() {
@@ -92,25 +101,21 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-//        return UserDetails.super.isAccountNonExpired();
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-//        return UserDetails.super.isAccountNonLocked();
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-//        return UserDetails.super.isCredentialsNonExpired();
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-//        return UserDetails.super.isEnabled();
         return getIsActive() == null || getIsActive();
     }
 }
