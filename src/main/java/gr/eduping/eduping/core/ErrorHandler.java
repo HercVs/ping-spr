@@ -1,9 +1,6 @@
 package gr.eduping.eduping.core;
 
-import gr.eduping.eduping.core.exceptions.EntityAlreadyExistsException;
-import gr.eduping.eduping.core.exceptions.EntityInvalidArgumentsException;
-import gr.eduping.eduping.core.exceptions.EntityNotAuthorizedException;
-import gr.eduping.eduping.core.exceptions.ValidationException;
+import gr.eduping.eduping.core.exceptions.*;
 import gr.eduping.eduping.dto.ResponseMessageDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +42,10 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotAuthorizedException.class)
     public ResponseEntity<ResponseMessageDTO> handleUnauthorizedException(EntityNotAuthorizedException e) {
         return new ResponseEntity<>(new ResponseMessageDTO(e.getCode(), e.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ResponseMessageDTO> handleNotFoundException(EntityNotFoundException e) {
+        return new ResponseEntity<>(new ResponseMessageDTO(e.getCode(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
