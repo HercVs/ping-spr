@@ -3,7 +3,6 @@ package gr.eduping.eduping.rest;
 import gr.eduping.eduping.core.exceptions.EntityInvalidArgumentsException;
 import gr.eduping.eduping.core.exceptions.EntityNotFoundException;
 import gr.eduping.eduping.dto.DepartmentReadOnlyDTO;
-import gr.eduping.eduping.dto.InstitutionReadOnlyDTO;
 import gr.eduping.eduping.dto.SchoolReadOnlyDTO;
 import gr.eduping.eduping.service.InstitutionService;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +21,6 @@ import java.util.Set;
 public class InstitutionController {
 
     private final InstitutionService institutionService;
-
-    // TODO more appropriate: /api/country/{countryId}/institutions
-    // but /api/country endpoint is not gonna get used again
-    @GetMapping("/country/{countryId}")
-    public ResponseEntity<Set<InstitutionReadOnlyDTO>> getInstitutionsForCountry(@PathVariable Long countryId)
-            throws EntityNotFoundException {
-
-        Set<InstitutionReadOnlyDTO> institutionsReadOnlyDTO = institutionService.getCountryInstitutions(countryId);
-
-        return new ResponseEntity<>(institutionsReadOnlyDTO, HttpStatus.OK);
-    }
 
     @GetMapping("/{institutionId}/schools")
     public ResponseEntity<Set<SchoolReadOnlyDTO>> getInstitutionSchools(@PathVariable Long institutionId)
