@@ -1,9 +1,5 @@
 *.jpg
 
-gradlew
-gradlew.bat
-settings.gradle
-gradle/
 logs/
 /*.txt
 *.sql
