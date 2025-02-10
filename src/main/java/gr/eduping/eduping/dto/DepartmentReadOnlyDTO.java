@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepartmentReadOnlyDTO {
+    private Long id;
     private String department;
     private String city;
     private String school;

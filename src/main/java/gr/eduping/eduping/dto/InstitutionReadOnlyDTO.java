@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class InstitutionReadOnlyDTO {
+    private Long id;
     private String name;
     private String country;
 }

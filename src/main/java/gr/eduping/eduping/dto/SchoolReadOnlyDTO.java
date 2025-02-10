@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SchoolReadOnlyDTO {
+    private Long id;
     private String school;
     private String institution;
 }
