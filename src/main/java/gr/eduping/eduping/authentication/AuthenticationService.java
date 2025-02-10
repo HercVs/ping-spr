@@ -33,7 +33,7 @@ public class AuthenticationService {
         User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new EntityNotAuthorizedException("User", "User not authorized"));
 
-        String token = jwtService.generateToken(authentication.getName(), user.getRole().name());
+        String token = jwtService.generateToken(authentication.getName(), user.getRole().name(), user.getId());
         return new AuthenticationResponseDTO(token);
     }
 
