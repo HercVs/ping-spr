@@ -48,6 +48,12 @@ public class SecurityConfiguration {
                 .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(customAuthenticationEntryPoint()))
                 .exceptionHandling(exceptions -> exceptions.accessDeniedHandler(customAccessDeniedHandler()))
                 .authorizeHttpRequests(req -> req
+                        .requestMatchers(
+                                "/api-docs",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/users/insert").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/auth/authenticate").permitAll()
                         .requestMatchers("/api/announcements/insert").hasRole("ADMIN")
