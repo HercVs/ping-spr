@@ -48,14 +48,9 @@ public class SecurityConfiguration {
                 .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(customAuthenticationEntryPoint()))
                 .exceptionHandling(exceptions -> exceptions.accessDeniedHandler(customAccessDeniedHandler()))
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/error").permitAll() // TODO debugging
                         .requestMatchers(HttpMethod.POST,"/api/users/insert").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/auth/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/test/open").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/test/authenticated").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/test/user").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/api/test/admin").hasRole("ADMIN")
-                        .requestMatchers("/api/announcements/insert").permitAll()
+                        .requestMatchers("/api/announcements/insert").hasRole("ADMIN")
                         .requestMatchers("/**").authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
