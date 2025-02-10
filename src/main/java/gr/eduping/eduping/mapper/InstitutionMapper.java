@@ -19,8 +19,8 @@ public class InstitutionMapper {
 
     public InstitutionReadOnlyDTO mapToInstitutionReadOnlyDTO(Institution institution) {
         InstitutionReadOnlyDTO institutionReadOnlyDTO = new InstitutionReadOnlyDTO();
+        institutionReadOnlyDTO.setId(institution.getId());
         institutionReadOnlyDTO.setName(institution.getName());
-        // TODO issue when trying to handle exception for below
         if (countryRepository.findByCityId(institution.getCity().getId()).isPresent()) {
             Country country = countryRepository.findByCityId(institution.getCity().getId()).get();
             institutionReadOnlyDTO.setCountry(country.getName());
@@ -30,6 +30,7 @@ public class InstitutionMapper {
 
     public SchoolReadOnlyDTO mapToSchoolReadOnlyDTO(School school) {
         SchoolReadOnlyDTO schoolReadOnlyDTO = new SchoolReadOnlyDTO();
+        schoolReadOnlyDTO.setId(school.getId());
         schoolReadOnlyDTO.setSchool(school.getName());
         schoolReadOnlyDTO.setInstitution(school.getInstitution().getName());
         return schoolReadOnlyDTO;
@@ -37,6 +38,7 @@ public class InstitutionMapper {
 
     public DepartmentReadOnlyDTO mapToDepartmentReadOnlyDTO(Department department) {
         DepartmentReadOnlyDTO departmentReadOnlyDTO = new DepartmentReadOnlyDTO();
+        departmentReadOnlyDTO.setId(department.getId());
         departmentReadOnlyDTO.setDepartment(department.getName());
         departmentReadOnlyDTO.setCity(department.getCity().getName());
         departmentReadOnlyDTO.setSchool(department.getSchool().getName());
