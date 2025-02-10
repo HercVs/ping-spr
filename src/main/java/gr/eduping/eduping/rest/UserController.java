@@ -115,22 +115,21 @@ public class UserController {
 
     @Operation(summary = "Delete a department from user",
             description = "Deletes a department from the user's subscription list.")
-    @DeleteMapping("/{userId}/departments")
+    @DeleteMapping("/{userId}/departments/{departmentId}")
     public ResponseEntity<Set<DepartmentReadOnlyDTO>> removeDepartmentFromUser(
             @PathVariable Long userId,
-            @Valid @RequestBody UserDepartmentDTO userDepartmentDTO,
-            BindingResult bindingResult)
-            throws EntityNotAuthorizedException, EntityNotFoundException, EntityInvalidArgumentsException, ValidationException {
+            @PathVariable Long departmentId)
+            throws EntityNotAuthorizedException, EntityNotFoundException, EntityInvalidArgumentsException {
 
         if (!authService.isPrincipalSelf(userId) && !authService.isPrincipalAdmin()) {
             throw new EntityNotAuthorizedException("User", "Not authorized");
         }
 
-        if (bindingResult.hasErrors()) {
-            throw new ValidationException(bindingResult);
-        }
+        Set<DepartmentReadOnlyDTO> userDepartmentsReadOnlyDTO = userService.removeDepartmentFromUser(
+                userId,
+                departmentId
+        );
 
-        Set<DepartmentReadOnlyDTO> userDepartmentsReadOnlyDTO = userService.removeDepartmentFromUser(userId, userDepartmentDTO.getDepartmentId());
         return new ResponseEntity<>(userDepartmentsReadOnlyDTO, HttpStatus.OK);
     }
 }
