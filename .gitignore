@@ -1,3 +1,5 @@
+*.jpg
+
 gradlew
 gradlew.bat
 settings.gradle
