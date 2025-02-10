@@ -29,7 +29,7 @@ Ensure the following are installed on your machine:
    git clone git@github.com:HercVs/ping-spr.git
    ```
 
-2. Clone the frontend repository in the same root directory:
+2. Clone the [frontend repository](https://github.com/HercVs/ping-ang) in the same root directory:
    ```
    git clone git@github.com:HercVs/ping-ang.git
    ```
