@@ -1,0 +1,40 @@
+services:
+  frontend:
+    build:
+      context: ../ping-ang
+    ports:
+      - "4200:4200"
+    networks:
+      - edu-ping
+
+  backend:
+    build: ./
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_URL: db
+      MYSQL_PORT: 3306
+      EDUPING_TEST_DB_NAME: edupingdb
+      EDUPING_TEST_DB_USER: eduDBUser
+      EDUPING_TEST_DB_PASS: pass@Edu123
+      EDUPING_JWT_SECRET_KEY:
+    depends_on:
+      - db
+    networks:
+      - edu-ping
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root@Edu123
+      MYSQL_DATABASE: edupingdb
+      MYSQL_USER: eduDBUser
+      MYSQL_PASSWORD: pass@Edu123
+    ports:
+      - "3306:3306"
+    networks:
+      - edu-ping
+
+networks:
+  edu-ping:
+    driver: bridge

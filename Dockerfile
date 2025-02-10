@@ -14,5 +14,11 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar edu-ping.jar
 
+# For wait-for script
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/edu-ping.jar"]
+
+COPY wait-for-db.sh ./scripts/wait-for-db.sh
+RUN chmod +x scripts/wait-for-db.sh
+ENTRYPOINT ["./scripts/wait-for-db.sh"]
