@@ -8,6 +8,9 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
 
+/**
+ * Defines response content when an authenticated client with insufficient authorization tries to access an endpoint.
+ */
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override

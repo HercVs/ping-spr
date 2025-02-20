@@ -8,6 +8,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.io.IOException;
 
+/**
+ * Defines response content when a not authenticated client tries to access an endpoint.
+ */
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override

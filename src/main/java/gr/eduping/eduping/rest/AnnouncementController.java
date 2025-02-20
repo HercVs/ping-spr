@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for announcements related requests.
+ * TODO announcements scraping to be implemented
+ */
 @RestController
 @RequestMapping("/api/announcements")
 @RequiredArgsConstructor
@@ -33,6 +37,5 @@ public class AnnouncementController {
 
         AnnouncementReadOnlyDTO readOnlyDTO = announcementService.insertAnnouncement(insertDTO);
         return new ResponseEntity<>(readOnlyDTO, HttpStatus.CREATED);
-
     }
 }

@@ -37,11 +37,20 @@ public class AuthenticationService {
         return new AuthenticationResponseDTO(token);
     }
 
+    /**
+     * Checks if the principal has admin role.
+     * @return true if the principal has admin role, false otherwise.
+     */
     public boolean isPrincipalAdmin() {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
         return principal.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(Role.ROLE_ADMIN.name()));
     }
 
+    /**
+     * Checks if the principal is the same with the user that is going to be affected during a CRUD user request.
+     * @param username the username of the user to be affected.
+     * @return true if the principal is the to-be affected user, false otherwise.
+     */
     @Transactional(rollbackOn = Exception.class)
     public boolean isPrincipalSelf(String username) {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
@@ -53,6 +62,11 @@ public class AuthenticationService {
         }
     }
 
+    /**
+     * Checks if the principal is the same with the user that is going to be affected during a CRUD user request.
+     * @param id the id of the user to be affected.
+     * @return true if the principal is the to-be affected user, false otherwise.
+     */
     @Transactional(rollbackOn = Exception.class)
     public boolean isPrincipalSelf(Long id) {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
