@@ -12,11 +12,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      MYSQL_URL: db
+      MYSQL_URL: db # Use the connection url available in the docker network 'edu-ping'
       MYSQL_PORT: 3306
       EDUPING_TEST_DB_NAME: edupingdb
       EDUPING_TEST_DB_USER: eduDBUser
-      EDUPING_TEST_DB_PASS: pass@Edu123
+      EDUPING_TEST_DB_PASS: user@Edu123
       EDUPING_JWT_SECRET_KEY:
     depends_on:
       - db
@@ -29,7 +29,7 @@ services:
       MYSQL_ROOT_PASSWORD: root@Edu123
       MYSQL_DATABASE: edupingdb
       MYSQL_USER: eduDBUser
-      MYSQL_PASSWORD: pass@Edu123
+      MYSQL_PASSWORD: user@Edu123
     ports:
       - "3306:3306"
     networks:

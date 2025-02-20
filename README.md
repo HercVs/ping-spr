@@ -60,11 +60,19 @@ project-root/
 
 ---
 
-## **MySQL Default Values**
-Default values are set in `docker-compose.yml`:
-- **Database:** `edupingdb`
-- **User:** `eduDBUser`
-- **Password:** `pass@Edu123`
+## **Default Values**
+All default values are inserted in environment and can be edited in `docker-compose.yml`.
+
+`EDUPING_JWT_SECRET_KEY` has publicly visible fallback value and can be left empty for testing.
+
+### **MySQL**
+Official MySQL docker image used for the DB service. Values in the backend and db services must match.
+
+| Purpose          | Backend Service      | DB Service     | Default Value |
+|------------------|----------------------|----------------|---------------|
+| Database name    | EDUPING_TEST_DB_NAME | MYSQL_DATABASE | edupingdb     |
+| DB user username | EDUPING_TEST_DB_USER | MYSQL_USER     | eduDBUser     |
+| DB user password | EDUPING_TEST_DB_PASS | MYSQL_PASSWORD | pass@Edu123   |
 
 ---
 
